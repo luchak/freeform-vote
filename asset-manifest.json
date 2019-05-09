@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/freeform-vote/static/css/main.f81a83d4.chunk.css",
-    "main.js": "/freeform-vote/static/js/main.78a07821.chunk.js",
-    "main.js.map": "/freeform-vote/static/js/main.78a07821.chunk.js.map",
+    "main.js": "/freeform-vote/static/js/main.a37724ef.chunk.js",
+    "main.js.map": "/freeform-vote/static/js/main.a37724ef.chunk.js.map",
     "runtime~main.js": "/freeform-vote/static/js/runtime~main.0318008a.js",
     "runtime~main.js.map": "/freeform-vote/static/js/runtime~main.0318008a.js.map",
     "static/js/2.00fcf9cc.chunk.js": "/freeform-vote/static/js/2.00fcf9cc.chunk.js",
     "static/js/2.00fcf9cc.chunk.js.map": "/freeform-vote/static/js/2.00fcf9cc.chunk.js.map",
     "index.html": "/freeform-vote/index.html",
-    "precache-manifest.9fa1a070c60efbefbf824ec259ae627f.js": "/freeform-vote/precache-manifest.9fa1a070c60efbefbf824ec259ae627f.js",
+    "precache-manifest.caf5992574e01df7a3ebe5fd486ee553.js": "/freeform-vote/precache-manifest.caf5992574e01df7a3ebe5fd486ee553.js",
     "service-worker.js": "/freeform-vote/service-worker.js",
     "static/css/main.f81a83d4.chunk.css.map": "/freeform-vote/static/css/main.f81a83d4.chunk.css.map"
   }

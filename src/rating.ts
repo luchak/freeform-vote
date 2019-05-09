@@ -32,8 +32,8 @@ export function parseVoteData(data: string): EntryRanking[] {
 
   data = data.trim();
   data = data.replace("\r\n", "\n");
-  data = data.replace(/\n[ \t\n]+\n/, "\n\n");
-  data = data.replace(/[ \t]+/, " ");
+  data = data.replace(/\n[ \t\n]+\n/g, "\n\n");
+  data = data.replace(/[ \t]+/g, " ");
 
   console.log('cleaned\n', data);
 

@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/freeform-vote/static/css/main.f81a83d4.chunk.css",
+    "main.js": "/freeform-vote/static/js/main.78a07821.chunk.js",
+    "main.js.map": "/freeform-vote/static/js/main.78a07821.chunk.js.map",
+    "runtime~main.js": "/freeform-vote/static/js/runtime~main.0318008a.js",
+    "runtime~main.js.map": "/freeform-vote/static/js/runtime~main.0318008a.js.map",
+    "static/js/2.00fcf9cc.chunk.js": "/freeform-vote/static/js/2.00fcf9cc.chunk.js",
+    "static/js/2.00fcf9cc.chunk.js.map": "/freeform-vote/static/js/2.00fcf9cc.chunk.js.map",
+    "index.html": "/freeform-vote/index.html",
+    "precache-manifest.b3df690f40db13ae6bd0f860ab02b8d7.js": "/freeform-vote/precache-manifest.b3df690f40db13ae6bd0f860ab02b8d7.js",
+    "service-worker.js": "/freeform-vote/service-worker.js",
+    "static/css/main.f81a83d4.chunk.css.map": "/freeform-vote/static/css/main.f81a83d4.chunk.css.map"
+  }
+}

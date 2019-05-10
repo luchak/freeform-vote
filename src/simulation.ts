@@ -50,7 +50,7 @@ export function genEntries(qualityDist: NormalDistribution, tasteStddev: number,
 
     for (let i = 0; i < numEntries; i++) {
         const mu = sampleNormal(qualityDist);
-        const entry = { id: idxToID(i), pListen: 0, quality: { mu, sigma2: tasteStddev * tasteStddev } }
+        const entry = { id: idxToID(i), pListen: 0, quality: { mu, sigma2: mu * mu * tasteStddev * tasteStddev } }
         while (entry.pListen <= 0 || entry.pListen > 1) {
             entry.pListen = sampleNormal(pListenDist);
         }

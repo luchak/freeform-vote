@@ -6,6 +6,7 @@ import {
   AveragePointsForm,
   averagePointsInstructions
 } from "./AveragePointsForm";
+import { SimulateForm } from "./SimulateForm";
 
 const sampleVotes = `Asiago Brie
 Cheddar
@@ -105,6 +106,8 @@ const App: React.FC = () => {
           {result && <pre>{result}</pre>}
         </div>
       </div>
+      <h3>Simulate voting</h3>
+      <SimulateForm setVotes={setVotes} />
     </>
   );
 };

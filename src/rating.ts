@@ -1,11 +1,12 @@
 import { rate, Rating } from "ts-trueskill";
 
-type EntryID = string;
+export type EntryID = string;
 
-type EntryRanking = EntryID[][];
+export type EntryRanking = EntryID[][];
 type RatingGroup = Rating[];
-type NormalDistribution = { mu: number; sigma2: number };
-type EntryScore = { id: EntryID; score: number };
+export type LogisticDistribution = { mu: number; s: number };
+export type NormalDistribution = { mu: number; sigma2: number };
+export type EntryScore = { id: EntryID; score: number };
 
 function* zip<T, U>(a: T[], b: U[]): IterableIterator<[T, U]> {
   const minLength = Math.min(a.length, b.length);
@@ -25,6 +26,10 @@ function shuffle<T>(array: T[]): T[] {
   }
 
   return array;
+}
+
+export function sortScoreDescending(scores: EntryScore[]): EntryScore[] {
+  return scores.sort((a, b) => b.score - a.score);
 }
 
 export function parseVoteData(data: string): EntryRanking[] {
@@ -98,8 +103,7 @@ export function scoreVotesByPoints(
     scores.push({ id, score });
   }
 
-  // Sort by score, descending
-  return scores.sort((a, b) => b.score - a.score);
+  return sortScoreDescending(scores);
 }
 
 export function scoreVotesByAveragePoints(
@@ -134,8 +138,7 @@ export function scoreVotesByAveragePoints(
     scores.push({ id, score: score / countMap.get(id)! });
   }
 
-  // Sort by score, descending
-  return scores.sort((a, b) => b.score - a.score);
+  return sortScoreDescending(scores);
 }
 
 export function scoreVotesTrueSkill(
@@ -157,8 +160,8 @@ export function scoreVotesTrueSkill(
     optimism,
     samples
   );
-  // Sort by score, descending
-  return scores.sort((a, b) => b.score - a.score);
+
+  return sortScoreDescending(scores);
 }
 
 export default class Contest {

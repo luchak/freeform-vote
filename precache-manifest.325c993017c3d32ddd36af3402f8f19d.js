@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "eba103322d0bb528b4197389f0df8468",
+    "revision": "5fccb83469d809d339e8f30bf5722a4b",
     "url": "/freeform-vote/index.html"
   },
   {
-    "revision": "5a567c41519025e33850",
+    "revision": "895827efdcd28304f399",
     "url": "/freeform-vote/static/css/main.f81a83d4.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/freeform-vote/static/js/2.f7298603.chunk.js"
   },
   {
-    "revision": "5a567c41519025e33850",
-    "url": "/freeform-vote/static/js/main.4f6d472a.chunk.js"
+    "revision": "895827efdcd28304f399",
+    "url": "/freeform-vote/static/js/main.9e7b1c83.chunk.js"
   },
   {
     "revision": "bdec7dc75a8fca69b746",

@@ -93,6 +93,11 @@ const App: React.FC = () => {
               ))}
             </select>
           </div>
+          {
+            // TODO: setResult is the wrong thing to pass here, since it duplicates result formatting in all the form
+            // classes. Should just pass a function to get the raw scores instead and do presentation here. Also, maybe
+            // it would be better to pass the textarea as a child and have the forms render children?
+          }
           <div>{React.createElement(form, { votes, setVotes, setResult })}</div>
         </div>
         <div>

@@ -42,7 +42,10 @@ export const TrueSkillForm = (props: {
         );
         props.setResult(
           scores
-            .map((score, index) => `${index + 1}\t${score.score.toFixed(3)}\t${score.id}`)
+            .map(
+              (score, index) =>
+                `${index + 1}\t${score.score.toFixed(3)}\t${score.id}`
+            )
             .join("\n")
         );
         event.preventDefault();

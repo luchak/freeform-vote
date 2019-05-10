@@ -9,13 +9,15 @@ export const averagePointsInstructions = (
     <div>
       <b>Points by rank</b> is how many points mixes get for each time they are
       listed at each rank, in descending order. So the default value of "3,2,1"
-      means that first place gets 3 points, second gets 2, etc.
+      means that first place gets 3 points, second gets 2, etc. Ties are split
+      equally, so 2 mixes tied for first/second with the default 3,2,1 scoring
+      each get 2.5 points.
     </div>
     <div>
       <b>Smoothing</b> helps to stabilize (and reduce) the scores of mixes with
       a small number of rankings. If smoothing is 1, each mix is treated as
-      though there were 1 extra ranking where it did not appear or otherwise
-      would not have received points.
+      though there were 1 extra ranking where it appeared rated too low to
+      receive any points.
     </div>
   </>
 );
@@ -42,7 +44,10 @@ export const AveragePointsForm = (props: {
         );
         props.setResult(
           scores
-            .map((score, index) => `${index + 1}\t${score.score.toFixed(3)}\t${score.id}`)
+            .map(
+              (score, index) =>
+                `${index + 1}\t${score.score.toFixed(3)}\t${score.id}`
+            )
             .join("\n")
         );
         event.preventDefault();

@@ -6,7 +6,6 @@ const defaultNumEntries = 20;
 const defaultNumRankings = 10;
 const defaultMeanPListen = 0.5;
 const defaultMinPListen = 0.2;
-const defaultQualityRange = 1.0;
 const defaultTasteStddev = 0.3;
 const defaultMaxRankingLength = 5;
 
@@ -26,7 +25,6 @@ export const SimulateForm = (props: {
   setVotes: (votes: string) => void;
 }) => {
   const [numEntries, setNumEntries] = useState(defaultNumEntries.toString());
-  const [qualityRange, setQualityRange] = useState(defaultQualityRange.toString());
   const [tasteStddev, setTasteStddev] = useState(defaultTasteStddev.toString());
   const [meanPListen, setMeanPListen] = useState(defaultMeanPListen.toString());
   const [minPListen, setMinPListen] = useState(defaultMinPListen.toString());
@@ -36,14 +34,13 @@ export const SimulateForm = (props: {
   return (
     <form
       onSubmit={event => {
-        const qualitySigma = parseFloat(qualityRange);
         const pListenMu = parseFloat(meanPListen);
         const pListenMin = parseFloat(minPListen);
         const pListenSigma = (pListenMu - pListenMin) / 2;
-        const entryProperties = genEntries({mu: 0, sigma2: qualitySigma*qualitySigma}, parseFloat(tasteStddev), {mu: pListenMu, sigma2: pListenSigma * pListenSigma}, parseInt(numEntries, 10));
+        const entryProperties = genEntries({mu: 0, sigma2: 1}, parseFloat(tasteStddev), {mu: pListenMu, sigma2: pListenSigma * pListenSigma}, parseInt(numEntries, 10));
         console.log('------------');
         console.log(entryProperties);
-        const rankings = simulate(entryProperties, parseInt(numRankings ,10), parseInt(maxRankingLength, 10));
+        const rankings = simulate(entryProperties, parseInt(numRankings, 10), parseInt(maxRankingLength, 10));
         console.log(rankings);
         props.setVotes(rankingsToText(rankings));
         event.preventDefault();
@@ -60,17 +57,7 @@ export const SimulateForm = (props: {
         />
       </div>
       <div>
-        <label>Quality range (0 to ~3):</label>
-        <input
-          type="text"
-          id="qualityRange"
-          name="qualityRange"
-          value={qualityRange}
-          onChange={event => setQualityRange(event.target.value)}
-        />
-      </div>
-      <div>
-        <label>Taste deviation (0 to ~3):</label>
+        <label>Taste deviation (&lt; 1: mix quality determines score more than voter taste, &gt; 1: voter taste determines score more than mix quality):</label>
         <input
           type="text"
           id="tasteStddev"

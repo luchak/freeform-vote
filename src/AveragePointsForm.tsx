@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { parseVoteData, scoreVotesByAveragePoints } from "./rating";
 
-const defaultRankPoints = "3,2,1";
+const defaultRankPoints = "5,4,3,2,1";
 const defaultSmoothing = 1;
 
 export const averagePointsInstructions = (

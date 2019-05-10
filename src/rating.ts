@@ -35,14 +35,11 @@ export function parseVoteData(data: string): EntryRanking[] {
   data = data.replace(/\n[ \t\n]+\n/g, "\n\n");
   data = data.replace(/[ \t]+/g, " ");
 
-  console.log('cleaned\n', data);
-
   const stringRankings = data.split("\n\n");
   for (let stringRanking of stringRankings) {
     const ranking: EntryRanking = [];
     for (let stringRankGroup of stringRanking.split("\n")) {
       stringRankGroup = stringRankGroup.trim();
-        console.log("group", stringRankGroup);
       const rankGroup = stringRankGroup.split(" ");
       if (rankGroup.length === 0) {
         throw new Error("0 length rank group found");
@@ -71,11 +68,77 @@ export function distributionsToScores(
     const score = normalizedMu + optimism * normalizedSigma;
     scores.push({ id, score });
   }
+  return scores;
+}
+
+export function scoreVotesByPoints(
+  votes: EntryRanking[],
+  pointsByRank: number[]
+): EntryScore[] {
+  const scoreMap: Map<EntryID, number> = new Map();
+
+  for (let ranking of votes) {
+    let place = 0;
+    for (let rankEntries of ranking) {
+      let rankPoints = 0;
+      for (let i = 0; i < rankEntries.length; i++) {
+        rankPoints += pointsByRank[place++] || 0;
+      }
+      const delta = rankPoints / rankEntries.length;
+      for (let id of rankEntries) {
+        let currentScore = scoreMap.get(id) || 0;
+        currentScore += delta;
+        scoreMap.set(id, currentScore);
+      }
+    }
+  }
+
+  const scores: EntryScore[] = [];
+  for (let [id, score] of scoreMap.entries()) {
+    scores.push({ id, score });
+  }
+
   // Sort by score, descending
   return scores.sort((a, b) => b.score - a.score);
 }
 
-export function scoreVotes(
+export function scoreVotesByAveragePoints(
+  votes: EntryRanking[],
+  pointsByRank: number[],
+  smoothing: number
+): EntryScore[] {
+  const scoreMap: Map<EntryID, number> = new Map();
+  const countMap: Map<EntryID, number> = new Map();
+
+  for (let ranking of votes) {
+    let place = 0;
+    for (let rankEntries of ranking) {
+      let rankPoints = 0;
+      for (let i = 0; i < rankEntries.length; i++) {
+        rankPoints += pointsByRank[place++] || 0;
+      }
+      const delta = rankPoints / rankEntries.length;
+      for (let id of rankEntries) {
+        let currentScore = scoreMap.get(id) || 0;
+        let currentCount = countMap.get(id) || smoothing;
+        currentScore += delta;
+        currentCount += 1;
+        scoreMap.set(id, currentScore);
+        countMap.set(id, currentCount);
+      }
+    }
+  }
+
+  const scores: EntryScore[] = [];
+  for (let [id, score] of scoreMap.entries()) {
+    scores.push({ id, score: score / countMap.get(id)! });
+  }
+
+  // Sort by score, descending
+  return scores.sort((a, b) => b.score - a.score);
+}
+
+export function scoreVotesTrueSkill(
   votes: EntryRanking[],
   optimism: number,
   samples: number
@@ -94,7 +157,8 @@ export function scoreVotes(
     optimism,
     samples
   );
-  return scores;
+  // Sort by score, descending
+  return scores.sort((a, b) => b.score - a.score);
 }
 
 export default class Contest {

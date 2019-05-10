@@ -7,11 +7,11 @@ const defaultSmoothing = 1;
 export const averagePointsInstructions = (
   <>
     <div>
-      <b>Points by rank</b> is how many points mixes get for each time they are
-      listed at each rank, in descending order. So the default value of "3,2,1"
-      means that first place gets 3 points, second gets 2, etc. Ties are split
-      equally, so 2 mixes tied for first/second with the default 3,2,1 scoring
-      each get 2.5 points.
+      <b>Points by rank</b> is how many points entries get for each time they
+      are listed at each rank, in descending order. So the default value of
+      "3,2,1" means that first place gets 3 points, second gets 2, etc. Ties are
+      split equally, so 2 entries tied for first/second with the default 3,2,1
+      scoring each get 2.5 points.
     </div>
     <div>
       <b>Smoothing</b> helps to stabilize (and reduce) the scores of mixes with

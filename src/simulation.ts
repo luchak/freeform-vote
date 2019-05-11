@@ -27,7 +27,7 @@ function sampleNormal(dist: NormalDistribution): number {
     return dist.mu + Math.sqrt(dist.sigma2) * x1 * s;
 }
 
-function idxToID(idx: number): EntryID {
+export function idxToID(idx: number): EntryID {
     let result = '';
     for (;;) {
         let charIdx = idx % 26;
@@ -88,6 +88,5 @@ function simulateVoter(entries: EntryProperties[], maxRankingLength?: number): E
     }
 
     sortScoreDescending(voterScores);
-    console.log(voterScores);
     return voterScores.map(score => [score.id]);
 }

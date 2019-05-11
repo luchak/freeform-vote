@@ -201,6 +201,10 @@ export default class Contest {
   }
 
   public update(ranking: EntryRanking) {
+    if (ranking.length < 2) {
+      // rankings that provide no info will throw
+      return;
+    }
     const ratingGroups = this._rankingToRatingGroups(ranking);
     const newRatingGroups = rate(ratingGroups);
     this._updateRatings(ranking, newRatingGroups);

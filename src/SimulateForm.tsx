@@ -40,10 +40,7 @@ export const SimulateForm = (props: {
         const pListenMin = parseFloat(minPListen);
         const pListenSigma = (pListenMu - pListenMin) / 2;
         const entryProperties = genEntries({mu: 0, sigma2: 1}, parseFloat(tasteStddev), {mu: pListenMu, sigma2: pListenSigma * pListenSigma}, parseInt(numEntries, 10));
-        console.log('------------');
-        console.log(entryProperties);
         const rankings = simulate(entryProperties, parseInt(numRankings, 10), parseInt(maxRankingLength, 10), parseFloat(pSelfVote));
-        console.log(rankings);
         props.setVotes(rankingsToText(rankings));
         event.preventDefault();
       }}

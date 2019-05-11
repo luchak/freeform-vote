@@ -15,7 +15,7 @@ function* zip<T, U>(a: T[], b: U[]): IterableIterator<[T, U]> {
   }
 }
 
-function shuffle<T>(array: T[]): T[] {
+export function shuffle<T>(array: T[]): T[] {
   array = array.slice();
 
   for (let i = array.length - 1; i > 0; i--) {

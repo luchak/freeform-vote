@@ -33,7 +33,8 @@ export const AnalyzeApp: React.FC = () => {
               const rankings = simulate(
                 entries,
                 parseInt(values.numRankings, 10),
-                parseInt(values.maxRankingLength, 10)
+                parseInt(values.maxRankingLength, 10),
+                parseFloat(values.pSelfVote)
               );
               contests.push(rankings);
             }
@@ -77,6 +78,11 @@ export const AnalyzeApp: React.FC = () => {
               order: 3,
               label: "Listen probability stddev",
               defaultValue: "0.2"
+            },
+            pSelfVote: {
+              order: 3.5,
+              label: "Probability a voter ranks own mix first",
+              defaultValue: "0.7"
             },
             numRankings: {
               order: 4,

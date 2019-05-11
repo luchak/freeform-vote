@@ -8,6 +8,7 @@ const defaultMeanPListen = 0.5;
 const defaultMinPListen = 0.2;
 const defaultTasteStddev = 0.3;
 const defaultMaxRankingLength = 5;
+const defaultPSelfVote = 0.5;
 
 function rankingsToText(rankings: EntryRanking[]): string {
     let result = '';
@@ -30,6 +31,7 @@ export const SimulateForm = (props: {
   const [minPListen, setMinPListen] = useState(defaultMinPListen.toString());
   const [numRankings, setNumRankings] = useState(defaultNumRankings.toString());
   const [maxRankingLength, setMaxRankingLength] = useState(defaultMaxRankingLength.toString());
+  const [pSelfVote, setPSelfVote] = useState(defaultPSelfVote.toString());
 
   return (
     <form
@@ -40,7 +42,7 @@ export const SimulateForm = (props: {
         const entryProperties = genEntries({mu: 0, sigma2: 1}, parseFloat(tasteStddev), {mu: pListenMu, sigma2: pListenSigma * pListenSigma}, parseInt(numEntries, 10));
         console.log('------------');
         console.log(entryProperties);
-        const rankings = simulate(entryProperties, parseInt(numRankings, 10), parseInt(maxRankingLength, 10));
+        const rankings = simulate(entryProperties, parseInt(numRankings, 10), parseInt(maxRankingLength, 10), parseFloat(pSelfVote));
         console.log(rankings);
         props.setVotes(rankingsToText(rankings));
         event.preventDefault();
@@ -84,6 +86,16 @@ export const SimulateForm = (props: {
           name="minPListen"
           value={minPListen}
           onChange={event => setMinPListen(event.target.value)}
+        />
+      </div>
+      <div>
+        <label>Self vote probability</label>
+        <input
+          type="text"
+          id="pSelfVote"
+          name="pSelfVote"
+          value={pSelfVote}
+          onChange={event => setPSelfVote(event.target.value)}
         />
       </div>
       <div>

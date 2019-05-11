@@ -1,4 +1,4 @@
-import { EntryID, EntryRanking, LogisticDistribution, EntryScore, sortScoreDescending, NormalDistribution } from "./rating";
+import { EntryID, EntryRanking, LogisticDistribution, EntryScore, sortScoreDescending, NormalDistribution, shuffle } from "./rating";
 
 export interface EntryProperties {
     id: EntryID;
@@ -66,27 +66,35 @@ export function genEntries(qualityDist: NormalDistribution, tasteStddev: number,
     return result;
 }
 
-export function simulate(entries: EntryProperties[], numRankings: number, maxRankingLength: number): EntryRanking[] {
+export function simulate(entries: EntryProperties[], numRankings: number, maxRankingLength: number, pSelfVote: number): EntryRanking[] {
+    const selfVoteOrder = shuffle(entries.map(entry => entry.id));
+
     const rankings: EntryRanking[] = [];
     for (let i = 0; i < numRankings; i++) {
-        rankings.push(simulateVoter(entries, maxRankingLength));
+        let selfVoteID: EntryID | undefined;
+        if ((selfVoteOrder.length > 0) && (Math.random() < pSelfVote)) {
+            selfVoteID = selfVoteOrder.pop()!;
+        }
+        let vote = simulateVoter(entries, maxRankingLength, selfVoteID);
+        rankings.push(vote);
     }
     return rankings;
 }
 
-function simulateVoter(entries: EntryProperties[], maxRankingLength?: number): EntryRanking {
-    const voterScores: EntryScore[] = [];
-
+function simulateVoter(entries: EntryProperties[], maxRankingLength?: number, selfVote?: EntryID): EntryRanking {
+    let voterScores: EntryScore[] = [];
 
     for (let entry of entries) {
-        if (Math.random() < entry.pListen) {
+        if (selfVote === entry.id) {
+            voterScores.push({id: entry.id, score: 1e6});
+        } else if (Math.random() < entry.pListen) {
             voterScores.push({id: entry.id, score: sampleNormal(entry.quality)});
-            if (maxRankingLength !== undefined && voterScores.length >= maxRankingLength) {
-                break;
-            }
         }
     }
 
     sortScoreDescending(voterScores);
+    if (maxRankingLength !== undefined) {
+        voterScores = voterScores.slice(0, maxRankingLength);
+    }
     return voterScores.map(score => [score.id]);
 }

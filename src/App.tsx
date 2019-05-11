@@ -11,7 +11,7 @@ const MODES: {[key: string]: React.FunctionComponent<{}>} = {
 const defaultMode = 'score';
 
 const App: React.FC = () => {
-  const [mode, setMode] = useState('score');
+  const [mode, setMode] = useState('analyze');
 
   return (
     <>

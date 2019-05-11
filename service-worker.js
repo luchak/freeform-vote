@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/freeform-vote/precache-manifest.1615b4bed49f6d6f236d405da4619c0f.js"
+  "/freeform-vote/precache-manifest.5e4a1ef9705e8914f3ab1f3eb248442c.js"
 );
 
 self.addEventListener('message', (event) => {
